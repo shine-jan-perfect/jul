@@ -1,6 +1,6 @@
 # Usage
 ### Module build.gradle
-'''
+```
 apply plugin: 'com.jul.plugins.ReStockingAppPlugin'
 
 import com.jul.utils.StrUtils
@@ -57,16 +57,16 @@ keystoreInfo {
         opensslPath = 'openssl'
     }
 }
-'''
+```
 
 ### Project build.gradle
-'''
+```
 implementation 'com.jul.plugin:android-keytool-openssl:3.0.0'
-'''
+```
 
 
 ### gradle.properties
-'''
+```
 customerId=10000customerId
 
 applicationId=com.baaaacustomerid.cabjaebcabeifc
@@ -78,4 +78,4 @@ signing_keyAlias=baaaacustomerid
 signing_certificate=10000customerId20190412014852.jks
 signing_certificatePassword=Aja0dCaGMf
 signing_storePassword=jwtjC3yjuQ
-'''
+```
