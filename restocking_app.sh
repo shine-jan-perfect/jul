@@ -1,5 +1,5 @@
 #!/bin/sh
-# @author Ruijin Ma
+# @author Summer Heart
 #
 
 #git pull
@@ -15,7 +15,7 @@ function getProperty {
    prop_value=`cat $properties_file | grep "$prop_key" | cut -d'=' -f2`
    echo $prop_value
 }
-echo "# Reading property from properties_file"
+echo "Reading property from $properties_file"
 
 echo $(getProperty "applicationId")
 echo $(getProperty "versionCode")
