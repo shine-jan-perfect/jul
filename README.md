@@ -65,7 +65,7 @@ implementation 'com.jul.plugin:android-keytool-openssl:3.0.0'
 ```
 
 
-### gradle.properties
+### Project gradle.properties
 ```
 customerId=10000customerId
 
