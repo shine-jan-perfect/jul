@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "366128067430",
+    "firebase_url": "https://sommer.firebaseio.com",
+    "project_id": "sommer",
+    "storage_bucket": "sommer.appspot.com"
+  },
+  "configuration_version": "1",
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:366128067430:android:bc932c50dbab2a56",
+        "android_client_info": {
+          "package_name": "com.baaaacustomerid.cabjaebcabeifc"
+        }
+      },
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "366128067430-q03ge5vhrkjdbp2mhnuurua1h3e3381a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRoVt_IsTtILcatj4a-FYProAPrn8Td5Q"
+        }
+      ]
+    }
+  ]
+}

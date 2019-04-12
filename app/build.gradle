@@ -1,0 +1,189 @@
+import java.text.SimpleDateFormat
+
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'com.jul.plugins.ReStockingAppPlugin'
+
+import com.jul.utils.StrUtils
+import com.jul.utils.AutoIncreaseVersionUtils
+
+def customerIdKeyGlobal = 'customerId'
+
+def applicationIdKeyGlobal = 'applicationId'
+def versionNameKeyGlobal = 'versionName'
+def versionCodeKeyGlobal = 'versionCode'
+
+def aliasKeyGlobal = 'signing_keyAlias'
+def keystorePathKeyGlobal = 'signing_certificate'
+def keypassKeyGlobal = 'signing_certificatePassword'
+def storepassKeyGlobal = 'signing_storePassword'
+
+keystoreInfo {
+    def customerId = rootProject.properties[customerIdKeyGlobal]
+
+    keytoolPath = 'keytool'
+    keystoreDir = "${rootProject.rootDir}/app/keystore"
+    keystoreFileName = "${customerId + new SimpleDateFormat('yyyyMMddhhmmss').format(new Date()) + '.jks'}"
+    alias = StrUtils.replaceNum2Letter(customerId)
+    storepass = StrUtils.generateRandomStr(10)
+    keypass = StrUtils.generateRandomStr(10)
+    keyalg = "RSA"
+    keysize = "2048"
+    validity = "1000"
+    dname = "CN=\'$customerId\',OU=\'$customerId\',O=\'$customerId\',L=\'indonesia\',ST=\'indonesia\',C=\'62\'"
+
+    propertiesInfo {
+        propertiesPath = rootProject.file('./gradle.properties') as String
+
+        aliasKey = 'signing_keyAlias'
+        keystoreFileNameKey = 'signing_certificate'
+        storepassKey = 'signing_storePassword'
+        keypassKey = 'signing_certificatePassword'
+
+        appInfo {
+            applicationIdKey = applicationIdKeyGlobal
+            applicationId = "com.${StrUtils.replaceNum2Letter(customerId)}.${StrUtils.replaceNum2Letter(new SimpleDateFormat('yyyyMMddhhmmss').format(new Date()))}"
+
+            versionCodeKey = versionCodeKeyGlobal
+            versionCode = AutoIncreaseVersionUtils.increaseVersionCode(project.properties[versionCodeKeyGlobal])
+
+            versionNameKey = versionNameKeyGlobal
+            versionName = AutoIncreaseVersionUtils.increaseVersionName(project.properties[versionNameKeyGlobal])
+
+            firebaseJsonPath = rootProject.file('./app/google-services.json') as String
+        }
+    }
+
+    opensslInfo {
+        opensslPath = 'openssl'
+    }
+}
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    defaultConfig {
+        applicationId project.properties[applicationIdKeyGlobal]
+
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+
+        versionCode project.properties[versionCodeKeyGlobal].toInteger()
+        versionName project.properties[versionNameKeyGlobal]
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        vectorDrawables.useSupportLibrary = true
+        ndk {}
+    }
+
+    signingConfigs {
+        release {
+            keyAlias "${project.properties[aliasKeyGlobal]}"
+            keyPassword "${project.properties[keypassKeyGlobal]}"
+            storeFile file("./keystore/${project.properties[keystorePathKeyGlobal]}")
+            storePassword "${project.properties[storepassKeyGlobal]}"
+        }
+    }
+
+    buildTypes {
+        debug {
+            debuggable true
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+            buildConfigField 'String', 'APP_URL', "\"https://play.google.com/store/apps/details?id=${project.properties[applicationIdKeyGlobal]}&hl=ncr\""
+            versionNameSuffix "-debug"
+            minifyEnabled false
+            zipAlignEnabled false
+            shrinkResources false
+            signingConfig signingConfigs.debug
+            multiDexKeepFile file('multidex-config.txt')
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        release {
+            debuggable false
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+            minifyEnabled true
+            zipAlignEnabled true
+            shrinkResources false
+            multiDexKeepFile file('multidex-config.txt')
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+
+        applicationVariants.all { variant ->
+            variant.outputs.all { output ->
+                println variant
+                def fileName = "${variant.flavorName}_${variant.mergedFlavor.applicationId}" +
+                        "_${variant.mergedFlavor.versionCode}_${variant.mergedFlavor.versionName}" +
+                        "_${new SimpleDateFormat("yyyy-MM-dd").format(new Date())}_${variant.buildType.name}.apk"
+                outputFileName = fileName
+            }
+        }
+    }
+
+    productFlavors {
+        def appId = project.properties[applicationIdKeyGlobal]
+
+        app {
+            applicationId appId
+
+            versionCode project.properties[versionCodeKeyGlobal].toInteger()
+            versionName project.properties[versionNameKeyGlobal]
+            versionNameSuffix "-product"
+
+            dimension "default"
+        }
+
+        product {
+            dimension "server"
+        }
+
+        demo {
+            versionCode 1
+            versionNameSuffix "-demo"
+
+            dimension "server"
+        }
+
+        beta {
+            versionCode 1
+            versionNameSuffix "-beta"
+
+            dimension "server"
+        }
+
+        googleplay {
+            buildConfigField('String', 'CHANNEL_NAME', '\"googleplay\"')
+
+            dimension "channel"
+        }
+
+        website {
+            buildConfigField('String', 'CHANNEL_NAME', '\"website\"')
+
+            dimension "channel"
+        }
+
+    }
+
+    flavorDimensions "default", "server", "channel"
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$rootProject.ext.kotlin_version"
+    implementation "org.jetbrains.anko:anko:$rootProject.ext.anko_version"
+    implementation "com.android.support:appcompat-v7:$rootProject.ext.supportLibraryVersion"
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+}

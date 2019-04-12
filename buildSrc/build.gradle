@@ -1,0 +1,142 @@
+/*// First, apply the publishing plugin
+buildscript {
+    repositories {
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
+        *//*maven { url "https://plugins.gradle.org/m2/" }*//*
+    }
+    dependencies {
+        classpath "com.gradle.publish:plugin-publish-plugin:0.9.1"
+    }
+}
+
+apply plugin: "com.gradle.plugin-publish"
+apply plugin: 'groovy'
+apply plugin: 'java'
+// Apply other plugins here, e.g. java plugin for a plugin written in java or
+// the groovy plugin for a plugin written in groovy
+
+// If your plugin has any external java dependencies, Gradle will attempt to
+// downloaded them from JCenter for anyone using the plugins DSL
+// so you should probably use JCenter for dependency resolution in your own
+// project.
+repositories {
+    google()
+    jcenter()
+    mavenCentral()
+}
+
+dependencies {
+    compile gradleApi()
+    compile localGroovy() //not needed for Java plugins
+    // other dependencies that your plugin requires
+    implementation 'com.google.code.gson:gson:2.8.5'
+}
+
+// Unless overridden in the pluginBundle config DSL, the project version will
+// be used as your plugin version when publishing
+version = "1.0.0" // 你发布插件的版本号
+group = "com.jul.plugin" // 你发布插件的组名
+
+// The configuration example below shows the minimum required properties
+// configured to publish your plugin to the plugin portal
+pluginBundle {
+    website = 'http://www.gradle.org/'
+    vcsUrl = 'https://github.com/gradle/gradle'
+    description = 'A plugin to re-stocking app' // 你发布插件的描述
+    tags = ['keytool', 'openssl'] // 你发布插件的标签
+
+    plugins {
+        greetingsPlugin {
+            id = 'com.jul.plugins.ReStockingAppPlugin' // 就是刚才定义属性文件时使用的ID
+            displayName = 'ReStockingAppPlugin' // 添加依赖时使用的名字
+        }
+    }
+}
+
+dependencies {
+    implementation gradleApi() //gradle sdk
+    implementation localGroovy() //groovy sdk
+    implementation 'com.google.code.gson:gson:2.8.5'
+}*/
+
+
+buildscript {
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.novoda:bintray-release:0.8.1'
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+apply plugin: 'java'
+apply plugin: 'groovy'
+apply plugin: 'com.novoda.bintray-release'
+
+repositories {
+    google()
+    jcenter()
+    mavenCentral()
+}
+
+dependencies {
+    implementation gradleApi() //gradle sdk
+    implementation localGroovy() //groovy sdk
+    implementation 'com.google.code.gson:gson:2.8.5'
+}
+
+publish {
+    repoName = 'jul' // repository name
+    groupId = "com.jul.plugin"
+    artifactId = "android-keytool-openssl" // package name
+    publishVersion = "3.0.0" // version
+    uploadName = 'android-keytool-openssl'
+    desc = 'Restocking app for my summer poetry' // project description
+    website = 'https://github.com/shine-jan-perfect' // github
+    userOrg = 'janeyre'
+    bintrayUser = '******'
+    bintrayKey = "******"
+    dryRun = false
+    licences = ['Apache-2.0']
+}
+
+/*
+apply plugin: 'java'
+apply plugin: 'groovy'
+
+apply plugin: 'maven-publish'
+
+repositories {
+    google()
+    jcenter()
+    mavenCentral()
+}
+
+dependencies {
+    implementation gradleApi() //gradle sdk
+    implementation localGroovy() //groovy sdk
+    implementation 'com.google.code.gson:gson:2.8.5'
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId 'com.jul.plugin'
+            artifactId 'julplugin'
+            version '1.0.0'
+
+            from components.java
+        }
+    }
+}
+
+publishing {
+    repositories {
+        maven {
+            // change to point to your repo, e.g. http://my.org/repo
+            url uri('../myrepos')
+        }
+    }
+}*/
