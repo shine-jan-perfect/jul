@@ -79,3 +79,34 @@ signing_certificate=10000customerId20190412014852.jks
 signing_certificatePassword=Aja0dCaGMf
 signing_storePassword=jwtjC3yjuQ
 ```
+
+### CommandLines
+Generate keystore:
+```
+./gradlew generateKeystoreSaveInfo2Properties
+```
+
+Print key hash:
+```
+./gradlew printOpensslInfo
+```
+
+Change applicationId:
+```
+./gradlew changeApplicationId
+```
+
+Increase versionCode and versionName:
+```
+./gradlew increaseAppVersion
+```
+
+Update google-services.json:
+```
+./gradlew updateFirebaseJson
+```
+
+Generate keystore, print key hash, increase versionCode and VersionName:
+```
+./gradlew reStockingApp
+```
