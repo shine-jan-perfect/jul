@@ -30,6 +30,7 @@ signing_keyAlias=baaaacustomerid
 signing_certificate=10000customerId20190412014852.jks
 signing_certificatePassword=Aja0dCaGMf
 signing_storePassword=jwtjC3yjuQ
+...
 ```
 
 ### Module build.gradle
@@ -90,6 +91,7 @@ keystoreInfo {
         opensslPath = 'openssl'
     }
 }
+...
 ```
 
 ### CommandLines
