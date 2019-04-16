@@ -96,8 +96,8 @@ publish {
     desc = 'Restocking app for my summer poetry' // project description
     website = 'https://github.com/shine-jan-perfect/jul' // github
     userOrg = 'janeyre'
-    bintrayUser = '******'
-    bintrayKey = "******"
+    /*bintrayUser = '******'
+    bintrayKey = "******"*/
     dryRun = false
     licences = ['Apache-2.0']
 }
