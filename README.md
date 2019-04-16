@@ -3,6 +3,7 @@
 
 ### Project build.gradle
 ```
+...
 buildscript {
     repositories {
         jcenter()
@@ -15,10 +16,12 @@ buildscript {
     }
     ...
 }
+...
 ```
 
 ### Project gradle.properties
 ```
+...
 customerId=10000customerId
 
 applicationId=com.baaaacustomerid.cabjaebcabeifc
@@ -35,6 +38,7 @@ signing_storePassword=jwtjC3yjuQ
 
 ### Module build.gradle
 ```
+...
 apply plugin: 'com.jul.plugins.ReStockingAppPlugin'
 
 import com.jul.utils.StrUtils
