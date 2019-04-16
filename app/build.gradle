@@ -16,7 +16,7 @@ def versionNameKeyGlobal = 'versionName'
 def versionCodeKeyGlobal = 'versionCode'
 
 def aliasKeyGlobal = 'signing_keyAlias'
-def keystorePathKeyGlobal = 'signing_certificate'
+def keystoreFileNameKeyGlobal = 'signing_certificate'
 def keypassKeyGlobal = 'signing_certificatePassword'
 def storepassKeyGlobal = 'signing_storePassword'
 
@@ -37,10 +37,10 @@ keystoreInfo {
     propertiesInfo {
         propertiesPath = rootProject.file('./gradle.properties') as String
 
-        aliasKey = 'signing_keyAlias'
-        keystoreFileNameKey = 'signing_certificate'
-        storepassKey = 'signing_storePassword'
-        keypassKey = 'signing_certificatePassword'
+        aliasKey = aliasKeyGlobal
+        keystoreFileNameKey = keystoreFileNameKeyGlobal
+        storepassKey = storepassKeyGlobal
+        keypassKey = keypassKeyGlobal
 
         appInfo {
             applicationIdKey = applicationIdKeyGlobal
@@ -88,7 +88,7 @@ android {
         release {
             keyAlias "${project.properties[aliasKeyGlobal]}"
             keyPassword "${project.properties[keypassKeyGlobal]}"
-            storeFile file("./keystore/${project.properties[keystorePathKeyGlobal]}")
+            storeFile file("./keystore/${project.properties[keystoreFileNameKeyGlobal]}")
             storePassword "${project.properties[storepassKeyGlobal]}"
         }
     }
