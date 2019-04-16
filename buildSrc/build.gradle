@@ -89,9 +89,9 @@ dependencies {
 
 publish {
     repoName = 'jul' // repository name
-    groupId = "com.jul.plugin"
-    artifactId = "android-keytool-openssl" // package name
-    publishVersion = "6.0.0" // version
+    groupId = 'com.jul.plugin'
+    artifactId = 'android-keytool-openssl' // package name
+    publishVersion = '6.0.0' // version
     uploadName = 'android-keytool-openssl'
     desc = 'Restocking app for my summer poetry' // project description
     website = 'https://github.com/shine-jan-perfect/jul' // github

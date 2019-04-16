@@ -76,6 +76,6 @@ class KeytoolUtils {
                 " -keysize $keystoreInfoExtension.keysize" +
                 " -validity $keystoreInfoExtension.validity" +
                 " -dname $keystoreInfoExtension.dname"
-        ProcessUtils.exec(command, ProcessUtils.ENCODING_GBK)
+        ProcessUtils.execPip(command, ProcessUtils.ENCODING_GBK)
     }
 }
