@@ -66,7 +66,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.novoda:bintray-release:0.8.1'
+        classpath 'com.novoda:bintray-release:0.9'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -91,7 +91,7 @@ publish {
     repoName = 'jul' // repository name
     groupId = "com.jul.plugin"
     artifactId = "android-keytool-openssl" // package name
-    publishVersion = "4.0.0" // version
+    publishVersion = "5.0.0" // version
     uploadName = 'android-keytool-openssl'
     desc = 'Restocking app for my summer poetry' // project description
     website = 'https://github.com/shine-jan-perfect/jul' // github
