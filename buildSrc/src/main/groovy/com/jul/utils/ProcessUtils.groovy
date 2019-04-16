@@ -5,6 +5,8 @@ class ProcessUtils {
     static def ENCODING_GBK = 'gbk'
 
     static def exec(def command, def encoding = ENCODING_UTF8) {
+        println "command -> $command"
+
         def out = new ByteArrayOutputStream()
         def err = new ByteArrayOutputStream()
 
@@ -19,6 +21,8 @@ class ProcessUtils {
 
     static def execPip(def command, def encoding = ENCODING_UTF8) {
         println "os -> ${OsUtils.getOS()}"
+
+        println "command -> $command"
 
         String[] batchCommand = new String[2]
         if (OsUtils.isWindows()) {

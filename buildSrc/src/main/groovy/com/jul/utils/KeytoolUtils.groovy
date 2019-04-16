@@ -67,8 +67,7 @@ class KeytoolUtils {
                 brErr.close()
             }
         }*/
-        ProcessUtils.exec("\"$keystoreInfoExtension.keytoolPath\"" +
-                " -genkey" +
+        def command = "\"$keystoreInfoExtension.keytoolPath\" -genkey" +
                 " -keystore \"$keystoreFilePath\"" +
                 " -alias $keystoreInfoExtension.alias" +
                 " -storepass $keystoreInfoExtension.storepass" +
@@ -76,6 +75,7 @@ class KeytoolUtils {
                 " -keyalg $keystoreInfoExtension.keyalg" +
                 " -keysize $keystoreInfoExtension.keysize" +
                 " -validity $keystoreInfoExtension.validity" +
-                " -dname $keystoreInfoExtension.dname", ProcessUtils.ENCODING_GBK)
+                " -dname $keystoreInfoExtension.dname"
+        ProcessUtils.exec(command, ProcessUtils.ENCODING_GBK)
     }
 }

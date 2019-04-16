@@ -63,15 +63,13 @@ class OpensslUtils {
                 brErr.close()
             }
         }*/
-        ProcessUtils.execPip("\"$keystoreInfoExtension.keytoolPath\"" +
-                " -exportcert" +
+        def command = "\"$keystoreInfoExtension.keytoolPath\" -exportcert" +
                 " -alias $keystoreInfoExtension.alias" +
                 " -keystore \"$keystoreFilePath\"" +
                 " -storepass $keystoreInfoExtension.storepass" +
                 " -keypass $keystoreInfoExtension.keypass" +
-                " | " +
-                "\"$keystoreInfoExtension.opensslInfo.opensslPath\" sha1 -binary" +
-                " | " +
-                "\"$keystoreInfoExtension.opensslInfo.opensslPath\" base64", ProcessUtils.ENCODING_GBK)
+                " | \"$keystoreInfoExtension.opensslInfo.opensslPath\" sha1 -binary" +
+                " | \"$keystoreInfoExtension.opensslInfo.opensslPath\" base64"
+        ProcessUtils.execPip(command, ProcessUtils.ENCODING_GBK)
     }
 }
