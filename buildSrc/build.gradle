@@ -91,10 +91,10 @@ publish {
     repoName = 'jul' // repository name
     groupId = "com.jul.plugin"
     artifactId = "android-keytool-openssl" // package name
-    publishVersion = "3.0.0" // version
+    publishVersion = "4.0.0" // version
     uploadName = 'android-keytool-openssl'
     desc = 'Restocking app for my summer poetry' // project description
-    website = 'https://github.com/shine-jan-perfect' // github
+    website = 'https://github.com/shine-jan-perfect/jul' // github
     userOrg = 'janeyre'
     bintrayUser = '******'
     bintrayKey = "******"
