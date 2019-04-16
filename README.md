@@ -10,7 +10,7 @@ buildscript {
     }
     
     dependencies {
-        classpath 'com.jul.plugin:android-keytool-openssl:3.0.0'
+        classpath 'com.jul.plugin:android-keytool-openssl:6.0.0'
         ...
     }
     ...
