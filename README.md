@@ -1,4 +1,37 @@
 # Usage
+---
+
+### Project build.gradle
+```
+buildscript {
+    repositories {
+        jcenter()
+        ...
+    }
+    
+    dependencies {
+        classpath 'com.jul.plugin:android-keytool-openssl:3.0.0'
+        ...
+    }
+    ...
+}
+```
+
+### Project gradle.properties
+```
+customerId=10000customerId
+
+applicationId=com.baaaacustomerid.cabjaebcabeifc
+
+versionName=1.0.1
+versionCode=2
+
+signing_keyAlias=baaaacustomerid
+signing_certificate=10000customerId20190412014852.jks
+signing_certificatePassword=Aja0dCaGMf
+signing_storePassword=jwtjC3yjuQ
+```
+
 ### Module build.gradle
 ```
 apply plugin: 'com.jul.plugins.ReStockingAppPlugin'
@@ -13,7 +46,7 @@ def versionNameKeyGlobal = 'versionName'
 def versionCodeKeyGlobal = 'versionCode'
 
 def aliasKeyGlobal = 'signing_keyAlias'
-def keystorePathKeyGlobal = 'signing_certificate'
+def keystoreFileNameKeyGlobal = 'signing_certificate'
 def keypassKeyGlobal = 'signing_certificatePassword'
 def storepassKeyGlobal = 'signing_storePassword'
 
@@ -26,18 +59,18 @@ keystoreInfo {
     alias = StrUtils.replaceNum2Letter(customerId)
     storepass = StrUtils.generateRandomStr(10)
     keypass = StrUtils.generateRandomStr(10)
-    keyalg = "RSA"
-    keysize = "2048"
-    validity = "1000"
+    keyalg = 'RSA'
+    keysize = '2048'
+    validity = '1000'
     dname = "CN=\'$customerId\',OU=\'$customerId\',O=\'$customerId\',L=\'indonesia\',ST=\'indonesia\',C=\'62\'"
 
     propertiesInfo {
         propertiesPath = rootProject.file('./gradle.properties') as String
 
-        aliasKey = 'signing_keyAlias'
-        keystoreFileNameKey = 'signing_certificate'
-        storepassKey = 'signing_storePassword'
-        keypassKey = 'signing_certificatePassword'
+        aliasKey = aliasKeyGlobal
+        keystoreFileNameKey = keystoreFileNameKeyGlobal
+        storepassKey = storepassKeyGlobal
+        keypassKey = keypassKeyGlobal
 
         appInfo {
             applicationIdKey = applicationIdKeyGlobal
@@ -57,27 +90,6 @@ keystoreInfo {
         opensslPath = 'openssl'
     }
 }
-```
-
-### Project build.gradle
-```
-implementation 'com.jul.plugin:android-keytool-openssl:3.0.0'
-```
-
-
-### Project gradle.properties
-```
-customerId=10000customerId
-
-applicationId=com.baaaacustomerid.cabjaebcabeifc
-
-versionName=1.0.1
-versionCode=2
-
-signing_keyAlias=baaaacustomerid
-signing_certificate=10000customerId20190412014852.jks
-signing_certificatePassword=Aja0dCaGMf
-signing_storePassword=jwtjC3yjuQ
 ```
 
 ### CommandLines
