@@ -1,6 +1,7 @@
 package com.jul.plugins
 
 import com.jul.bean.FirebaseBean
+import com.jul.utils.FileUtils
 import com.jul.utils.GsonUtils
 import com.jul.utils.KeytoolUtils
 import com.jul.utils.OpensslUtils
@@ -96,6 +97,8 @@ class ReStockingAppPlugin implements Plugin<Project> {
         PropertiesUtils.writeProperties(project.keystoreInfo.propertiesInfo.propertiesPath,
                 project.keystoreInfo.propertiesInfo.storepassKey,
                 project.keystoreInfo.storepass)
+
+        print "generate keystore and save info to properties successfully"
     }
 
     static void increaseAppVersion(Project project) {
@@ -106,12 +109,16 @@ class ReStockingAppPlugin implements Plugin<Project> {
         PropertiesUtils.writeProperties(project.keystoreInfo.propertiesInfo.propertiesPath,
                 project.keystoreInfo.propertiesInfo.appInfo.versionNameKey,
                 project.keystoreInfo.propertiesInfo.appInfo.versionName)
+
+        print "increase app version successfully"
     }
 
     static void changeApplicationId(Project project) {
         PropertiesUtils.writeProperties(project.keystoreInfo.propertiesInfo.propertiesPath,
                 project.keystoreInfo.propertiesInfo.appInfo.applicationIdKey,
                 project.keystoreInfo.propertiesInfo.appInfo.applicationId)
+
+        print "change applicationId successfully"
     }
 
     static void updateFirebaseJson(Project project) {
@@ -122,13 +129,19 @@ class ReStockingAppPlugin implements Plugin<Project> {
                         project.keystoreInfo.propertiesInfo.appInfo.applicationIdKey)
         FileUtils.writeFile(project.keystoreInfo.propertiesInfo.appInfo.firebaseJsonPath,
                 new Gson().toJson(firebaseBean), false)*/
-        def firebaseBean = GsonUtils.readJson(project.keystoreInfo.propertiesInfo.appInfo.firebaseJsonPath,
-                FirebaseBean.class)
-        firebaseBean.client[0].client_info.android_client_info.package_name =
-                PropertiesUtils.readProperties(project.keystoreInfo.propertiesInfo.propertiesPath,
-                        project.keystoreInfo.propertiesInfo.appInfo.applicationIdKey)
-        GsonUtils.writeJson(project.keystoreInfo.propertiesInfo.appInfo.firebaseJsonPath,
-                firebaseBean, false)
+        if (FileUtils.isFileExits(project.keystoreInfo.propertiesInfo.appInfo.firebaseJsonPath)) {
+            def firebaseBean = GsonUtils.readJson(project.keystoreInfo.propertiesInfo.appInfo.firebaseJsonPath,
+                    FirebaseBean.class)
+            firebaseBean.client[0].client_info.android_client_info.package_name =
+                    PropertiesUtils.readProperties(project.keystoreInfo.propertiesInfo.propertiesPath,
+                            project.keystoreInfo.propertiesInfo.appInfo.applicationIdKey)
+            GsonUtils.writeJson(project.keystoreInfo.propertiesInfo.appInfo.firebaseJsonPath,
+                    firebaseBean, false)
+
+            print "update firebase json successfully"
+        } else {
+            print "firebase json not found, so don't need to update firebase json"
+        }
     }
 
     static void printOpensslInfo(Project project) {
@@ -228,7 +241,7 @@ class AppInfoExtension {
     def firebaseJsonPath = ''
 
     @Override
-    public String toString() {
+    String toString() {
         return "AppInfoExtension{" +
                 "applicationIdKey=" + applicationIdKey +
                 ", applicationId=" + applicationId +

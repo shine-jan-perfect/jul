@@ -1,6 +1,11 @@
 package com.jul.utils
 
 class FileUtils {
+    static def isFileExits(def filePath) {
+        File file = new File(filePath)
+        return file.exists()
+    }
+
     static def getCurDir() {
         def directory = new File("") //设定为当前文件夹
         try {
