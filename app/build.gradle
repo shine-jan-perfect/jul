@@ -59,6 +59,12 @@ keystoreInfo {
     opensslInfo {
         opensslPath = 'openssl'
     }
+
+    fbConfigInfo {
+        fbConfigFilePath = "/Users/isanwenyu/Library/Mobile Documents/com~apple~CloudDocs/starwin/${customerIdKeyGlobal}/fb_config.txt"
+        fbConfigClassName= 'tech.starwin.app.main.ui.SplashActivity'
+        fbConfigPrivacy= "${gw_home}/privacy.html"
+    }
 }
 
 android {

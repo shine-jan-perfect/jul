@@ -1,6 +1,7 @@
 package com.jul.plugins
 
 import com.jul.bean.FirebaseBean
+import com.jul.utils.FbConfigInofUtils
 import com.jul.utils.GsonUtils
 import com.jul.utils.KeytoolUtils
 import com.jul.utils.OpensslUtils
@@ -61,6 +62,12 @@ class ReStockingAppPlugin implements Plugin<Project> {
                 description: 'print openssl info') {
             doLast {
                 printOpensslInfo(project)
+            }
+        }
+        project.task('writeFbConfigInfo', group: 'ReStockingApp',
+                description: 'write Fb config file') {
+            doLast {
+                writeFbConfigInfo(project)
             }
         }
     }
@@ -135,12 +142,17 @@ class ReStockingAppPlugin implements Plugin<Project> {
         OpensslUtils.printOpensslInfo(PropertiesUtils.readKeystoreInfoFromProperties(project.keystoreInfo))
     }
 
+    static void writeFbConfigInfo(Project project) {
+        FbConfigInofUtils.writeFbConfigFile(PropertiesUtils.readKeystoreInfoFromProperties(project.keystoreInfo))
+    }
+
 }
 
 class KeystoreInfoExtension {
     KeystoreInfoExtension() {
         this.extensions.create("propertiesInfo", PropertiesInfoExtension, "propertiesInfo")
         this.extensions.create("opensslInfo", OpensslInfoExtension, "opensslInfo")
+        this.extensions.create("fbConfigInfo", FbConfigInfoExtension, "fbConfigInfo")
     }
 
     def keytoolPath = 'keytool'
@@ -207,6 +219,22 @@ class OpensslInfoExtension {
     String toString() {
         return "OpensslInfoExtension{" +
                 "opensslPath=" + opensslPath +
+                '}'
+    }
+}
+class FbConfigInfoExtension {
+    FbConfigInfoExtension(String name) {
+        println "name = " + name
+    }
+
+    def fbConfigFilePath = ''
+    def fbConfigClassName = ''
+    def fbConfigPrivacy = ''
+
+    @Override
+    String toString() {
+        return "FbConfigInfoExtension{" +
+                "fbConfigFilePath=" + fbConfigFilePath +
                 '}'
     }
 }
