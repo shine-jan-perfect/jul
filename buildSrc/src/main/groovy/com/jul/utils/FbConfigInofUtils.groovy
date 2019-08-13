@@ -30,7 +30,7 @@ class FbConfigInofUtils {
             }
             FileUtils.writeFile(fbConfigFilePath, fbConfigText, false)
 
-            println 'writeFbConfigFile -> ' + fbConfigText
+            println 'writeFbConfigFile -> \n' + fbConfigText
 
         } else {
             throw new IllegalStateException("fbConfigFileDir should be a file basic path")

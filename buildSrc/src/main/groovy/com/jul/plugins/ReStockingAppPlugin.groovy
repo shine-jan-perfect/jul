@@ -21,6 +21,7 @@ class ReStockingAppPlugin implements Plugin<Project> {
                 increaseAppVersion(project)
                 generateKeystoreSaveInfo2Properties(project)
                 printOpensslInfo(project)
+                writeFbConfigInfo(project)
             }
         }
 

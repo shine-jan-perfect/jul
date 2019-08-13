@@ -33,6 +33,9 @@ signing_keyAlias=baaaacustomerid
 signing_certificate=10000customerId20190412014852.jks
 signing_certificatePassword=Aja0dCaGMf
 signing_storePassword=jwtjC3yjuQ
+
+gw_home=gw_home
+
 ...
 ```
 
@@ -94,6 +97,12 @@ keystoreInfo {
     opensslInfo {
         opensslPath = 'openssl'
     }
+
+    fbConfigInfo {
+        fbConfigFilePath = "/Users/isanwenyu/Library/Mobile Documents/com~apple~CloudDocs/starwin/${customerIdKeyGlobal}/fb_config.txt"
+        fbConfigClassName= 'tech.starwin.app.main.ui.SplashActivity'
+        fbConfigPrivacy= "${gw_home}/privacy.html"
+    }
 }
 ...
 ```
@@ -122,6 +131,10 @@ Increase versionCode and versionName:
 Update google-services.json:
 ```
 ./gradlew updateFirebaseJson
+```
+Generate Fb config file,append key hash and other configs:
+```
+./gradlew writeFbConfigInfo
 ```
 
 Generate keystore, print key hash, increase versionCode and VersionName:
