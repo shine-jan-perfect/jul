@@ -42,5 +42,8 @@ class ProcessUtils {
         println "process code: ${process.exitValue()}"
         println "process err: ${err.toString(encoding)}"
         println "process out: ${out.toString(encoding)}"
+
+        //return out string
+        out.toString(encoding)
     }
 }
